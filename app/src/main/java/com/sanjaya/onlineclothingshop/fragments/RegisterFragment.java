@@ -16,7 +16,7 @@ import com.sanjaya.onlineclothingshop.R;
 
 public class RegisterFragment extends Fragment implements View.OnClickListener {
 
-    private EditText regUsername,regPassword;
+    private EditText regUsername,regPassword, regFname, regLname;
     private Button btnRegister;
 
     @Override
@@ -25,6 +25,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.register_fragment, container, false);
 
+        regFname = view.findViewById(R.id.regFname);
+        regLname = view.findViewById(R.id.regLname);
         regUsername = view.findViewById(R.id.regUsername);
         regPassword = view.findViewById(R.id.regPassword);
         btnRegister = view.findViewById(R.id.btnSignup);
@@ -37,12 +39,17 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        editor.putString("First Name",regFname.getText().toString());
+        editor.putString("Last Name",regLname.getText().toString());
         editor.putString("username",regUsername.getText().toString());
         editor.putString("password",regPassword.getText().toString());
         editor.commit();
 
         Commons.alert(getContext(),"You have been registered sucessfully! Login now.");
 
+
+        regFname.setText("");
+        regLname.setText("");
         regUsername.setText("");
         regPassword.setText("");
     }
